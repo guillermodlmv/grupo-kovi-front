@@ -15,7 +15,7 @@
         <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
     </mat-form-field>
-    <button (click)="onSubmit()"  [disabled]="f.invalid" mat-flat-button color="primary">Iniciar Sesion</button> 
+    <button (click)="onLogin()"  [disabled]="f.invalid" mat-flat-button color="primary">Iniciar Sesion</button> 
   </form>
   <h5>¿Aún no tienes cuenta?</h5>
   <a routerLink="/auth/registro" class="registrarse"><span>Registrate</span></a>

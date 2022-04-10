@@ -1,43 +1,70 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { IniciarSesionService } from 'src/app/Services/iniciar-sesion/iniciar-sesion.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { AuthService } from 'src/app/Services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UsuarioService } from 'src/app/Services/usuario.service';
 
 @Component({
   selector: 'app-iniciar-sesion',
   templateUrl: './iniciar-sesion.component.html',
-  styleUrls: ['./iniciar-sesion.component.css']
+  styleUrls: ['./iniciar-sesion.component.css'],
 })
 export class IniciarSesionComponent {
-
-  hide : boolean = true;
+  hide: boolean = true;
   constructor(
     private fb: FormBuilder,
-    private iniciarSesionService: IniciarSesionService,
-    private router: Router, 
-  ){}
+    private authService: AuthService,
+    private usuarioService: UsuarioService,
+    private router: Router
+  ) {}
 
-  f : FormGroup= this.fb.group({
-    correo : new FormControl('',[ Validators.required, Validators.email] ),
-    password : new FormControl('',[ Validators.required, Validators.minLength(6)])
+  f: FormGroup = this.fb.group({
+    correo: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
   });
 
-  onSubmit = () => {
-    const {correo , password } = this.f.value;
-    // console.log(this.f.value);
-    this.iniciarSesionService.iniciarSesion(correo , password )
-      .subscribe(ok =>{
-        if(ok) {
-          this.router.navigateByUrl('/home');
-          return
-        }
+  onLogin = () => {
+    const { correo, password } = this.f.value;
+    this.authService.iniciarSesion(correo, password).subscribe((e) => {
+      console.log(e.error.message);
+      if (e.ok) {
+        this.router.navigateByUrl('/home');
+        return;
+      } else if (e.error.message === 'Usuario no activado') {
         Swal.fire({
-          icon: 'error',
-          title: "Error",
-          text: 'Favor de verificar correo o contraseña',
-        })
-      })
-  }
+          icon: 'info',
+          title: e.error.message,
+          text: '¿Deseas que te reenviemos el correo de activacion?',
+          showCancelButton: true,
+          confirmButtonColor: '#015d86',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'No',
+          confirmButtonText: 'Reenviame el correo de activacion!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.usuarioService
+              .obtenerUsuarioPorCorreo(correo)
+              .subscribe((e) => {
+                console.log(e);
+                Swal.fire('Enviado!', e.message, 'success');
+              });
+          }
+        });
+        return;
+      }
+      Swal.fire({
+        icon: 'error',
+        title: e.error.message,
+      });
+    });
+  };
 }
-

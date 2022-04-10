@@ -12,6 +12,9 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
+  {
+    path: '**', redirectTo: 'auth/iniciar-sesion'
+  },
 ];
 
 @NgModule({

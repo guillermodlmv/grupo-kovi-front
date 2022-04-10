@@ -8,18 +8,24 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/Services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css'],
 })
+
 export class RegistroComponent {
-  hide: boolean = true;
-  constructor(private fb: FormBuilder) {}
-  miValidador = () => {
-    return false;
-  };
+  hideFirsPassword: boolean = true;
+  hideSecondPassword: boolean = true;
+  constructor(
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService,
+    private router: Router
+    ) {}
 
   f: FormGroup = this.fb.group({
     nombre: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{2,254}')]),
@@ -28,6 +34,9 @@ export class RegistroComponent {
     celular: new FormControl('', [
       Validators.required,
       Validators.pattern('[0-9]{10,10}')
+    ]),
+    usuario: new FormControl('', [
+      Validators.required,
     ]),
     correo: new FormControl('', [
       Validators.required, Validators.email, 
@@ -49,9 +58,36 @@ export class RegistroComponent {
   }
   );
 
-
+  info(){
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = "<ul style='font-size: 12px'><li>Contraseña debe contener al menos una minuscula.</li><li>Contraseña debe contener al menos una mayuscula.</li><li>Contraseña debe contener al menos un número.</li><li>Contraseña debe contener al menos uno de los siguientes caracteres $@$!%*?&.</li></ul>";
+    Swal.fire({
+      icon: 'info',
+      title: "Requisitos de contraseña",
+      html: wrapper
+    })
+  }
   onSubmit = () => {
-    console.log(this.f);
+    const {nombre, primer_apellido, segundo_apellido, celular, usuario, correo, password} = this.f.value;
+    const usuarioNuevo = {nombre, primer_apellido, segundo_apellido, celular, usuario, correo, password}
+    this.usuarioService.registro(usuarioNuevo)
+      .subscribe(e => {
+        console.log(e);
+        if(e.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: "Usuario Creado",
+            text: "Se ha enviado un mensaje de activacion a su correo, active su cuenta para poder disfrutar los beneficios de ser nuestro cliente."
+          })
+          this.router.navigateByUrl('/auth/iniciar-sesion');
+          return
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: `${e.message}`,
+          })
+        }
+      })
   };
 }
 
