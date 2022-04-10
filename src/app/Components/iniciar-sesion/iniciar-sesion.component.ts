@@ -35,7 +35,6 @@ export class IniciarSesionComponent {
   onLogin = () => {
     const { correo, password } = this.f.value;
     this.authService.iniciarSesion(correo, password).subscribe((e) => {
-      console.log(e.error.message);
       if (e.ok) {
         this.router.navigateByUrl('/home');
         return;
@@ -52,9 +51,8 @@ export class IniciarSesionComponent {
         }).then((result) => {
           if (result.isConfirmed) {
             this.usuarioService
-              .obtenerUsuarioPorCorreo(correo)
+              .enviarCorreoActivacion(correo)
               .subscribe((e) => {
-                console.log(e);
                 Swal.fire('Enviado!', e.message, 'success');
               });
           }

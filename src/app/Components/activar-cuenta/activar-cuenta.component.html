@@ -1,1 +1,8 @@
-<p>activar-cuenta works!</p>
+<br><br>
+<mat-card class="activar-cuenta-card">
+  <img class="logo" src="../../../favicon.ico"/>
+  <h1>Hola, {{cliente.nombre +' '+cliente.primer_apellido | titlecase }}</h1>
+  <h2>Estas a un solo paso de formas parte de la familia Kovi y con ello obtener recompensas en todas tus compras!</h2>
+  <h3>Para activar tu cuenta da click en el botón de abajo</h3>
+  <button (click)="activarCuenta()"  mat-flat-button color="primary">Activar Cuenta</button> 
+</mat-card>

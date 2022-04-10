@@ -18,8 +18,7 @@ const routes: Routes = [
         component: RegistroComponent,
         canActivate: [],
         canLoad: [],
-      },
-           
+      },          
       {
         path: 'activar-cuenta/:token',
         component: ActivarCuentaComponent,

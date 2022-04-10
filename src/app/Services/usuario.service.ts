@@ -13,19 +13,33 @@ export class UsuarioService {
 
   registro(cliente: Cliente) {
     const url = `${this.baseUrl}`;
-    return this.http.post<registroSesionResponse>(url, cliente)
-    .pipe(
-      map(resp => resp),
-      catchError( err => of(err.error))
-    )
+    return this.http.post<registroSesionResponse>(url, cliente).pipe(
+      map((resp) => resp),
+      catchError((err) => of(err.error))
+    );
   }
 
-  obtenerUsuarioPorCorreo(correo : String){
+  enviarCorreoActivacion(correo: String) {
     const url = `${this.baseUrl}/correo/${correo}`;
-    return this.http.get<Cliente>(url)
-    .pipe(
-      map(resp => resp),
-      catchError( err => of(err.error))
-    )
+    return this.http.get<Cliente>(url).pipe(
+      map((resp) => resp),
+      catchError((err) => of(err.error))
+    );
+  }
+
+  activarCuenta(token: string) {
+    const url = `${this.baseUrl}/activar-cuenta/`;
+    return this.http.patch(url, {token}).pipe(
+      map((resp) => resp),
+      catchError((err) => of(err))
+    );
+  }
+
+  validarToken(token: string) {
+    const url = `${this.baseUrl}/token/${token}`;
+    return this.http.get(url).pipe(
+      map((resp) => resp),
+      catchError((err) => of(err))
+    );
   }
 }
