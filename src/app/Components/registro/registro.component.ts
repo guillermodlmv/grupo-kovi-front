@@ -27,8 +27,6 @@ export class RegistroComponent {
     segundo_apellido: new FormControl('', [Validators.pattern('[a-zA-Z ]{2,254}')]),
     celular: new FormControl('', [
       Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(10), 
       Validators.pattern('[0-9]{10,10}')
     ]),
     correo: new FormControl('', [

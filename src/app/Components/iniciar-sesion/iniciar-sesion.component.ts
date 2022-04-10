@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { IniciarSesionService } from 'src/app/Services/iniciar-sesion/iniciar-sesion.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -10,7 +13,9 @@ export class IniciarSesionComponent {
 
   hide : boolean = true;
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
+    private iniciarSesionService: IniciarSesionService,
+    private router: Router, 
   ){}
 
   f : FormGroup= this.fb.group({
@@ -19,7 +24,20 @@ export class IniciarSesionComponent {
   });
 
   onSubmit = () => {
-    console.log(this.f.value);
+    const {correo , password } = this.f.value;
+    // console.log(this.f.value);
+    this.iniciarSesionService.iniciarSesion(correo , password )
+      .subscribe(ok =>{
+        if(ok) {
+          this.router.navigateByUrl('/home');
+          return
+        }
+        Swal.fire({
+          icon: 'error',
+          title: "Error",
+          text: 'Favor de verificar correo o contraseña',
+        })
+      })
   }
 }
 

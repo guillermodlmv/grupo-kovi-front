@@ -6,3 +6,9 @@ export interface Cliente {
   correo: String,
   password: String,
 }
+export interface inicioSesionResponse {
+  message: String,
+  ok: boolean, 
+  token: string
+}
+
