@@ -1,1 +1,22 @@
-<p>iniciar-sesion works!</p>
+<br><br>
+<mat-card class="iniciar-sesion-card">
+  
+  <form class="form" [formGroup]="f">
+    <img class="logo" src="../../../favicon.ico"/>
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="correo" 
+            placeholder="Ejemplo kovi@ejemplo.com">
+    </mat-form-field>
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button (click)="onSubmit()"  [disabled]="f.invalid" mat-flat-button color="primary">Iniciar Sesion</button> 
+  </form>
+  <h5>¿Aún no tienes cuenta?</h5>
+  <a routerLink="/auth/registro" class="registrarse"><span>Registrate</span></a>
+</mat-card>

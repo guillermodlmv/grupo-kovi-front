@@ -1,1 +1,110 @@
-<p>registro works!</p>
+<br>
+<br>
+<mat-card class="iniciar-sesion-card">
+  
+  <form class="form" [formGroup]="f">
+    <img class="logo" src="../../../favicon.ico"/>
+    <div class="form-container">
+    <div class="sub-form-container">
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input type="nombre" matInput formControlName="nombre">
+            <mat-error *ngIf="!f.controls['nombre'].hasError('required')">
+              Por favor inserte un nombre valido.
+            </mat-error>
+          <mat-error *ngIf="f.controls['nombre'].hasError('required')">
+              Nombre es <strong>necesario</strong>
+            </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Primer apellido</mat-label>
+      <input type="primer_apellido" matInput formControlName="primer_apellido">
+            <mat-error *ngIf="!f.controls['primer_apellido'].hasError('required')">
+              Por favor inserte un apellido valido.
+            </mat-error>
+            <mat-error *ngIf="f.controls['nombre'].hasError('required')">
+              Primer Apellido es <strong>necesario</strong>
+            </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Segundo apellido</mat-label>
+      <input type="segundo_apellido" matInput formControlName="segundo_apellido">
+            <mat-error *ngIf="!f.controls['segundo_apellido'].hasError('required')">
+              Por favor inserte un apellido valido.
+            </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>celular</mat-label>
+      <span matPrefix>+52 &nbsp;</span>
+      <input type="celular" matInput formControlName="celular" placeholder="555-555-1234">
+            <mat-error *ngIf="!f.controls['celular'].hasError('required')">
+              Por favor inserte un Celular valido.
+            </mat-error>
+    </mat-form-field>
+    </div>
+
+    <div class="sub-form-container">
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Correo</mat-label>
+      <input type="email" matInput formControlName="correo" 
+            placeholder="Ejemplo kovi@ejemplo.com">
+            <mat-error *ngIf="f.controls['correo'].hasError('email') && !f.controls['correo'].hasError('required') || f.controls['correo'].hasError('pattern')">
+              Por favor inserte un correo valido.
+            </mat-error>
+            <mat-error *ngIf="f.controls['correo'].hasError('required')">
+              Correo es <strong>necesario</strong>
+            </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Ingresa tu contraseña</mat-label>
+      <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="f.controls['password'].hasError('required')">
+        Contraseña es <strong>necesaria</strong>
+      </mat-error>
+      <mat-error *ngIf="f.controls['password'].hasError('pattern')">
+        Formato de contraseña equivocado
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Repite tu contraseña</mat-label>
+      <input matInput formControlName="repeatPassword" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="f.controls['repeatPassword'].hasError('required')">
+        Por favor repita su contraseña
+      </mat-error>
+      <mat-error *ngIf="f.controls['repeatPassword'].hasError('pattern')">
+        Formato de contraseña equivocado
+      </mat-error>
+      <mat-error *ngIf="f.controls['repeatPassword'].hasError('confirmedValidator')">
+        Las contraseñas no son iguales, favor de confirmar.
+      </mat-error>
+    </mat-form-field>
+    <mat-card class="password-validation">
+      <ul>
+        <li>Contraseña debe contener al menos una minuscula.</li>
+        <li>Contraseña debe contener al menos una mayuscula.</li>
+        <li>Contraseña debe contener al menos un número.</li>
+        <li>Contraseña debe contener al menos uno de los siguientes caracteres $@$!%*?&.</li>
+      </ul>
+    </mat-card>
+  </div>
+</div>
+<br>
+    <button (click)="onSubmit()"   mat-flat-button color="primary">Registrarse</button>
+  </form>
+  <h5>¿Ya tienes cuenta?</h5>
+  <a routerLink="/auth/inicia-sesion" class="registrarse"><span>Iniciar Sesion</span></a>
+  
+</mat-card>
+<br>
+<br>

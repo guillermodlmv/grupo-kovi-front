@@ -6,6 +6,11 @@ import { IniciarSesionComponent } from 'src/app/Components/iniciar-sesion/inicia
 import { RegistroComponent } from 'src/app/Components/registro/registro.component';
 
 
+import { MatCardModule } from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -15,7 +20,12 @@ import { RegistroComponent } from 'src/app/Components/registro/registro.componen
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class AuthModule { }
