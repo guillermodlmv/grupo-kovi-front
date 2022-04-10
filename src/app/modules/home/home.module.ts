@@ -10,7 +10,6 @@ import { DetallePremioComponent } from 'src/app/Components/detalle-premio/detall
 import { PedidosClienteComponent } from 'src/app/Components/pedidos-cliente/pedidos-cliente.component';
 import { PerfilClienteComponent } from 'src/app/Components/perfil-cliente/perfil-cliente.component';
 import { DetallePedidoComponent } from '../../Components/detalle-pedido/detalle-pedido.component';
-import { ActivarCuentaComponent } from 'src/app/Components/activar-cuenta/activar-cuenta.component';
 import { CambiarCorreoComponent } from '../../Components/cambiar-correo/cambiar-correo.component';
 import { CarritoDetalleComponent } from '../../Components/carrito-detalle/carrito-detalle.component';
 import { RecompensasClienteComponent } from '../../Components/recompensas-cliente/recompensas-cliente.component';
@@ -30,7 +29,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     PedidosClienteComponent,
     PerfilClienteComponent,
     DetallePedidoComponent,
-    ActivarCuentaComponent,
     CambiarCorreoComponent,
     CarritoDetalleComponent,
     RecompensasClienteComponent,

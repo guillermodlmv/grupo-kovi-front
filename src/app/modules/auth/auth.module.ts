@@ -4,7 +4,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IniciarSesionComponent } from 'src/app/Components/iniciar-sesion/iniciar-sesion.component';
 import { RegistroComponent } from 'src/app/Components/registro/registro.component';
-
+import { ActivarCuentaComponent } from 'src/app/Components/activar-cuenta/activar-cuenta.component';
 
 import { MatCardModule } from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
@@ -25,7 +25,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    ActivarCuentaComponent,  
   ]
 })
 export class AuthModule { }
