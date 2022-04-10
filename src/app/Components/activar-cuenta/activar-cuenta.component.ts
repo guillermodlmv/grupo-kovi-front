@@ -31,18 +31,24 @@ export class ActivarCuentaComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.token = params.get('token') || '';
     });
+    
+    console.log(this.token)
     this.usuarioService.validarToken(this.token).subscribe(e => {
       if(e.usuario){
         this.cliente.primer_apellido = e.usuario.primer_apellido || " "
         this.cliente.nombre = e.usuario.nombre || " "
+        
+    console.log(this.token)
       }
       
+    console.log(this.token)
     })
   }
   activarCuenta(): void {
+    console.log(this.token)
     this.usuarioService.activarCuenta(this.token)
     .subscribe(e=> {
-      if(e.validacion){
+      if(e.ok){
           this.router.navigateByUrl('/auth/iniciar-sesion');
           Swal.fire("Cuenta Activada","Por favor inicia sesion", 'success');
           
